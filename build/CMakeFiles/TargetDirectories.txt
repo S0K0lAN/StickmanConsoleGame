@@ -1,0 +1,3 @@
+D:/work/c,c++/StickmanConsoleGame/build/CMakeFiles/consoleGame.dir
+D:/work/c,c++/StickmanConsoleGame/build/CMakeFiles/edit_cache.dir
+D:/work/c,c++/StickmanConsoleGame/build/CMakeFiles/rebuild_cache.dir
