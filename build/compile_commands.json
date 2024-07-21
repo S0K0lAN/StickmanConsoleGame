@@ -1,0 +1,8 @@
+[
+{
+  "directory": "D:/work/c,c++/StickmanConsoleGame/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -O3 -DNDEBUG -o CMakeFiles\\consoleGame.dir\\main.cpp.obj -c D:\\work\\c,c++\\StickmanConsoleGame\\main.cpp",
+  "file": "D:\\work\\c,c++\\StickmanConsoleGame\\main.cpp",
+  "output": "CMakeFiles\\consoleGame.dir\\main.cpp.obj"
+}
+]
