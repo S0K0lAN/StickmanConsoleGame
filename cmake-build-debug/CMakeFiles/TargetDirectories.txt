@@ -1,3 +1,0 @@
-/home/pcex/CLionProjects/consoleGame/cmake-build-debug/CMakeFiles/consoleGame.dir
-/home/pcex/CLionProjects/consoleGame/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/pcex/CLionProjects/consoleGame/cmake-build-debug/CMakeFiles/rebuild_cache.dir

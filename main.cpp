@@ -2,6 +2,9 @@
 #include <vector>
 #include <unordered_map>
 #include <utility>
+#include <Windows.h>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
@@ -226,6 +229,49 @@ unordered_map<string, string> Scene::COLORS = {
 };
 
 
+//////////////////////////////HeroActionsController//////////////////////
+
+
+
+
+class HeroActionsController{
+
+private:
+    static HeroActionsController* _HAR;
+    Player* _player;
+
+    HeroActionsController(Player* player){
+        _player = player;
+    }
+
+public:
+    static HeroActionsController* getHeroActionsControllerInstance(Player* player){
+        if(_HAR == nullptr){
+            _HAR = new HeroActionsController(player);
+        }
+        return _HAR;
+    }
+
+    void moveLeft(){
+        _player->setPos(_player->pos().first, _player->pos().second - 1);
+    }
+
+    void moveRight(){
+        _player->setPos(_player->pos().first, _player->pos().second + 1);
+    }
+    void jump(int stageOfAnimation){
+        if(stageOfAnimation == 0)
+            _player->setPos(_player->pos().first-1, _player->pos().second);
+        if(stageOfAnimation == 1)
+            _player->setPos(_player->pos().first+1, _player->pos().second);
+
+    }
+
+};
+
+HeroActionsController* HeroActionsController::_HAR = nullptr;
+
+
 
 
 
@@ -251,6 +297,7 @@ public:
     }
 
     void render() {
+        _gameScene->makeScene();
         _gameScene->renderScene();
     }
 
@@ -264,10 +311,49 @@ bool Game::_isGameInitialized = false;
 Game* Game::_game = nullptr;
 
 
+void GetKEY(bool KEY[256])
+{
+    int i = 0;
+    while(i < 256){
+        if(GetAsyncKeyState(i)) KEY[i] = 1; else KEY[i] = 0;
+            i++;
+    }
+}
+
+
+
+
 int main() {
-    Game* game = Game::getGameInstance();
+    Game* game = Game::getGameInstance(Scene::getSceneInstance(Player::getPlayerInstance(), Field::getFieldInstance()));
+    HeroActionsController* hac = HeroActionsController::getHeroActionsControllerInstance(Player::getPlayerInstance());
 
 
+    int stageOfAnimation = 0;
+    while(true){
+        bool KEY[256];
+        GetKEY(KEY);
+        if(KEY[65])
+        {
+            hac->moveLeft();
+        }
+        if(KEY[87])
+        {
+            hac->jump(stageOfAnimation);
+            ++stageOfAnimation;
+
+            if(stageOfAnimation == 2) stageOfAnimation = 0;
+        }
+        if(KEY[68])
+        {
+            hac->moveRight();
+        }
+
+
+        
+        game->render();
+        this_thread::sleep_for(chrono::milliseconds(100));
+        system("cls");
+    }
 
     return 0;
 }
